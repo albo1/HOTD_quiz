@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>HOT_D QUIZ !!1!</title>
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body>
     <div class="center containter" id="welcome">
         <h1>Welcome to Kings Landing!</h1>
@@ -19,15 +21,39 @@
             <div class="card-body">
                 <h1 id="choice-question"></h1>
                 <div class="row toprow">
-                    
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-secondary btn-lg quiz-btn" id="choice-a">
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-secondary btn-lg quiz-btn" id="choice-b">
+                        </button>
+                    </div>
+                </div>
+                <div class="row bottomrow">
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-secondary btn-lg quiz-btn" id="choice-c">
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-secondary btn-lg quiz-btn" id="choice-d">
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
-    
-    
-    </div>"
-
-    <div id="timer"></div>
+    </div>
+    <div class="container" id="end-game" style="visibility: hidden;" ;>
+        <div class="card">
+            <div class="card-body">
+                <h1>GAME OVER!</h1>
+            </div>
+        </div>
+    </div>
+    <div id="timer">
+    </div>
     <script src="./script.js"></script>
 </body>
+
 </html>
