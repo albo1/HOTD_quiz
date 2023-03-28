@@ -78,7 +78,10 @@ mainSubmitBtn.addEventListener("click", function loadQuestion() {
 
 //=========================================================
 
-function setQuestionns(i) {
+function setQuestions(i) {
     var  i = 0
-    var objQ = questions[i];
+    var objQuestion = questions[i];
+    var correctAnswer = objQuestion.a;
+    console.log(correctAnswer);
+    quizQuestion.textContent = objQuestion.q;
 }
