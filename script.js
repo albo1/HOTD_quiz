@@ -42,3 +42,16 @@ var questions = [{
 
 console.log(Questions[1].c1);
 
+//=========================================================
+
+mainSubmitBtn.addEventListener("click", function loadQuestion() {
+
+    introContainer.style.visibility = "hidden";
+    quizContainer.style.visibility = "visibile";
+
+    var timeLeft = 60;
+    var timeInterval = setInterval(function () {
+        
+    })
+
+})
