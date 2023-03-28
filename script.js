@@ -16,6 +16,7 @@ var gameOverContainer = document.getElementById("end-game");
 // console.log(mainSubmitBtn);
 
 //=========================================================
+// create array with questions & answers
 
 var questions = [{
     q: "What is the name of Rhaenyra's Dragon?",
@@ -44,6 +45,8 @@ var questions = [{
 
 //=========================================================
 
+//get button to work
+
 mainSubmitBtn.addEventListener("click", function loadQuestion() {
 
     introContainer.style.visibility = "hidden";
@@ -60,7 +63,7 @@ mainSubmitBtn.addEventListener("click", function loadQuestion() {
             endGame();
         }
     }, 1000);
-
+//shrink time?
     setQuestions(0);
 
 
@@ -78,10 +81,37 @@ mainSubmitBtn.addEventListener("click", function loadQuestion() {
 
 //=========================================================
 
+
 function setQuestions(i) {
     var  i = 0
     var objQuestion = questions[i];
     var correctAnswer = objQuestion.a;
     console.log(correctAnswer);
     quizQuestion.textContent = objQuestion.q;
+    answerA.textContent = objQuestion.c1;
+    answerB.textContent = objQuestion.c2;
+    answerC.textContent = objQuestion.c3;
+    answerD.textContent = objQuestion.c4;
+
+    answerA.addEventListener("click", function () {
+        // console.log("hello bish")
+        checkCorrectAnswer(objQuestion.c1);
+    });
+    answerB.addEventListener("click", function () {
+        console.log(objQuestion.c2);
+    });
+    answerC.addEventListener("click", function () {
+        console.log(objQuestion.c3);
+    });
+    answerD.addEventListener("click", function () {
+        console.log(objQuestion.c4);
+    });
+}
+
+function checkCorrectAnswer(chosenAnswer) {
+    console.log(chosenAnswer);
+
+    if (chosenAnswer === correctAnswer) {
+        console.log("u suck eggs")
+    }
 }
