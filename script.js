@@ -40,7 +40,7 @@ var questions = [{
     c4: "The Dreadfort",
 }];
 
-console.log(Questions[1].c1);
+// console.log(questions[1].c1);
 
 //=========================================================
 
@@ -68,7 +68,37 @@ mainSubmitBtn.addEventListener("click", function loadQuestion() {
         gameOverContainer.style.visibility ="visible";
         quizContainer.style.visibility = "hidden";
     }
-    // start new timer tho
-    // ""
+    // start new timer tho??
+    // var timeLeft = 60;
+    // var timeInterval = setInterval(function() {
+    //     timeEl.textContent = timeLeft + "seconds remain";
+    // });
 
+});
+
+//=========================================================
+
+mainSubmitBtn.addEventListener("click", function loadQuestion() {
+    introContainer.style.visibility = "hidden";
+    quizContainer.style.visibility = "visible";
+
+     var timeLeft = 60;
+     var timeInterval = setInterval(function () {
+        timeEl.textContent = timeLeft + " seconds remain";
+        timeLeft--;
+
+        if(timeLeft === 0) {
+            timeEl.textContent = "";
+
+            clearInterval(timeInterval);
+            endGame();
+        }
+     }, 1000);
+
+     setQuestions(0);
+
+
+     function endGame() {
+        gameOverContainer.style.visibility
+     }
 })
