@@ -15,15 +15,6 @@ var objQuestion;
 var correctAnswer;
 var currentQuestionIndex = 0;
 
-
-// console.log(answerA);
-// console.log(timeEl);
-// console.log(quizContainer);
-// console.log(mainSubmitBtn);
-
-//=========================================================
-// create array with questions & answers
-
 var questions = [{
     q: "What is the name of Rhaenyra's Dragon?",
     a: "Syrax",
@@ -47,10 +38,6 @@ var questions = [{
     c4: "The Dreadfort",
 }];
 
-// console.log(questions[1].c1);
-
-//get button to work
-
 mainSubmitBtn.addEventListener("click", function () {
 
     introContainer.style.display = "none";
@@ -70,74 +57,75 @@ mainSubmitBtn.addEventListener("click", function () {
 
     setQuestions(0);
 
-    // function endGame() {
-    //     gameOverContainer.style.display = "none";
-    //     quizContainer.style.display = "block";
-    // }
-
 });
 
-
 function setQuestions(i) {
-    const objQuestion = questions[i];
-    
+    objQuestion = questions[i];
+  
     if (!objQuestion) {
-        gameDone();
-        return;
-      }
-    
-    const correctAnswer = objQuestion.a;
-    const button1 = document.createElement("button")
-    const button2 = document.createElement("button")
-    const button3 = document.createElement("button")
-    const button4 = document.createElement("button")
-    
+      gameDone();
+      return;
+    }
+  
+    correctAnswer = objQuestion.a;
+    const button1 = document.createElement("button");
+    const button2 = document.createElement("button");
+    const button3 = document.createElement("button");
+    const button4 = document.createElement("button");
+  
     quizQuestion.textContent = objQuestion.q;
     button1.textContent = objQuestion.c1;
     button2.textContent = objQuestion.c2;
     button3.textContent = objQuestion.c3;
     button4.textContent = objQuestion.c4;
-    
+  
     document.querySelector(".buttons").innerHTML = "";
     document.querySelector(".buttons").append(button1);
     document.querySelector(".buttons").append(button2);
     document.querySelector(".buttons").append(button3);
     document.querySelector(".buttons").append(button4);
-
-
-    document.querySelector(".buttons").addEventListener("click", function (event) {
-        currentQuestionIndex++;
-        if (event.target.matches("button")) {
-            if (event.target.textContent === correctAnswer) {
-                console.log('yay');
-                setQuestions(currentQuestionIndex);
-            } else {
-                console.log("boo");
-                timeLeft -= 10;
-                if (timeLeft <= 0) {
-                    timeLeft = 0;
-                    gameDone();
-                } else {
-                    setQuestions(currentQuestionIndex);
-                }
-            }
+  
+    // Remove previous event listener before adding a new one
+    document
+      .querySelector(".buttons")
+      .removeEventListener("click", buttonClickHandler);
+    document
+      .querySelector(".buttons")
+      .addEventListener("click", buttonClickHandler);
+  
+    function buttonClickHandler(event) {
+      if (event.target.matches("button")) {
+        if (event.target.textContent === correctAnswer) {
+          console.log("yay");
+          setQuestions(i + 1);
+        } else {
+          console.log("boo");
+          timeLeft -= 2;
+          if (timeLeft <= 0) {
+            timeLeft = 0;
+            gameDone();
+          } else {
+            setQuestions(i + 1);
+          }
         }
-    });
-}
+        event.stopImmediatePropagation();
+        currentQuestionIndex++;
+        setQuestions(currentQuestionIndex);
+      }
+    }
+  }
 
 function checkCorrectAnswer(chosenAnswer) {
-    // console.log(chosenAnswer);
-
     if (chosenAnswer === correctAnswer) {
-        console.log("u suck eggs")
+        console.log("Correct answer!");
     } else {
-        //deduct time
+        timeLeft -= 10;
     }
 
     currentQuestionIndex++;
 
     if (currentQuestionIndex === questions.length) {
-        console.log("hey hey")
+        console.log("Game over");
         gameDone();
     } else {
         setQuestions(currentQuestionIndex);
@@ -155,13 +143,4 @@ function gameDone() {
     // setQuestions(questions.length -1)
 }
 
-
-
-
-//======================
-// functions: create function for start of game. 
-// next functionn would be to display the questions
-// - maybe sprinkle in start timer there.
-// - function also takes u to next question
-// - (f)deduct time when answer is incorrect
-// - (f) end quiz
+setQuestions(0);
