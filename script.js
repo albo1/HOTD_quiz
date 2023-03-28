@@ -51,7 +51,14 @@ mainSubmitBtn.addEventListener("click", function loadQuestion() {
 
     var timeLeft = 60;
     var timeInterval = setInterval(function () {
-        
+        timeEl.textContent = timeLeft + " seconds remain";
+        timeLeft--;
+
+        if(timeLeft === 0) {
+            timeEl.textContent = "";
+            clearInterval(timeInterval);
+            endGame();
+        }
     })
 
 })
