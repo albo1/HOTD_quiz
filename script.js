@@ -9,6 +9,12 @@ var answerB = document.getElementById("choice-b");
 var answerC = document.getElementById("choice-c");
 var answerD = document.getElementById("choice-d");
 var gameOverContainer = document.getElementById("end-game");
+var timeInterval;
+var timeLeft;
+var objQuestion;
+var correctAnswer;
+var currentQuestionIndex = 0;
+
 
 // console.log(answerA);
 // console.log(timeEl);
@@ -43,75 +49,119 @@ var questions = [{
 
 // console.log(questions[1].c1);
 
-//=========================================================
-
 //get button to work
 
-mainSubmitBtn.addEventListener("click", function loadQuestion() {
+mainSubmitBtn.addEventListener("click", function () {
 
-    introContainer.style.visibility = "hidden";
-    quizContainer.style.visibility = "visibile";
+    introContainer.style.display = "none";
+    quizContainer.style.display = "block";
 
-    var timeLeft = 60;
-    var timeInterval = setInterval(function () {
+    timeLeft = 60;
+    timeInterval = setInterval(function () {
         timeEl.textContent = timeLeft + " seconds remain";
         timeLeft--;
 
-        if(timeLeft === 0) {
+        if (timeLeft < 0) {
             timeEl.textContent = "";
             clearInterval(timeInterval);
-            endGame();
+            gameDone();
         }
     }, 1000);
-//shrink time?
+
     setQuestions(0);
 
-
-    function endGame() {
-        gameOverContainer.style.visibility ="visible";
-        quizContainer.style.visibility = "hidden";
-    }
-    // start new timer tho??
-    // var timeLeft = 60;
-    // var timeInterval = setInterval(function() {
-    //     timeEl.textContent = timeLeft + "seconds remain";
-    // });
+    // function endGame() {
+    //     gameOverContainer.style.display = "none";
+    //     quizContainer.style.display = "block";
+    // }
 
 });
 
-//=========================================================
-
 
 function setQuestions(i) {
-    var  i = 0
-    var objQuestion = questions[i];
-    var correctAnswer = objQuestion.a;
-    console.log(correctAnswer);
+    const objQuestion = questions[i];
+    
+    if (!objQuestion) {
+        gameDone();
+        return;
+      }
+    
+    const correctAnswer = objQuestion.a;
+    const button1 = document.createElement("button")
+    const button2 = document.createElement("button")
+    const button3 = document.createElement("button")
+    const button4 = document.createElement("button")
+    
     quizQuestion.textContent = objQuestion.q;
-    answerA.textContent = objQuestion.c1;
-    answerB.textContent = objQuestion.c2;
-    answerC.textContent = objQuestion.c3;
-    answerD.textContent = objQuestion.c4;
+    button1.textContent = objQuestion.c1;
+    button2.textContent = objQuestion.c2;
+    button3.textContent = objQuestion.c3;
+    button4.textContent = objQuestion.c4;
+    
+    document.querySelector(".buttons").innerHTML = "";
+    document.querySelector(".buttons").append(button1);
+    document.querySelector(".buttons").append(button2);
+    document.querySelector(".buttons").append(button3);
+    document.querySelector(".buttons").append(button4);
 
-    answerA.addEventListener("click", function () {
-        // console.log("hello bish")
-        checkCorrectAnswer(objQuestion.c1);
-    });
-    answerB.addEventListener("click", function () {
-        console.log(objQuestion.c2);
-    });
-    answerC.addEventListener("click", function () {
-        console.log(objQuestion.c3);
-    });
-    answerD.addEventListener("click", function () {
-        console.log(objQuestion.c4);
+
+    document.querySelector(".buttons").addEventListener("click", function (event) {
+        currentQuestionIndex++;
+        if (event.target.matches("button")) {
+            if (event.target.textContent === correctAnswer) {
+                console.log('yay');
+                setQuestions(currentQuestionIndex);
+            } else {
+                console.log("boo");
+                timeLeft -= 10;
+                if (timeLeft <= 0) {
+                    timeLeft = 0;
+                    gameDone();
+                } else {
+                    setQuestions(currentQuestionIndex);
+                }
+            }
+        }
     });
 }
 
 function checkCorrectAnswer(chosenAnswer) {
-    console.log(chosenAnswer);
+    // console.log(chosenAnswer);
 
     if (chosenAnswer === correctAnswer) {
         console.log("u suck eggs")
+    } else {
+        //deduct time
+    }
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex === questions.length) {
+        console.log("hey hey")
+        gameDone();
+    } else {
+        setQuestions(currentQuestionIndex);
     }
 }
+
+function gameDone() {
+    clearInterval(timeInterval);
+    introContainer.style.display = "none";
+    quizContainer.style.display = "none";
+    gameOverContainer.style.display = "block";
+    var finalScore = timeLeft;
+    var gameOverMessage = "YOU DIED! Your final score is: " + finalScore;
+    gameOverContainer.textContent = gameOverMessage;
+    // setQuestions(questions.length -1)
+}
+
+
+
+
+//======================
+// functions: create function for start of game. 
+// next functionn would be to display the questions
+// - maybe sprinkle in start timer there.
+// - function also takes u to next question
+// - (f)deduct time when answer is incorrect
+// - (f) end quiz
