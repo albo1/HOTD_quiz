@@ -59,6 +59,16 @@ mainSubmitBtn.addEventListener("click", function loadQuestion() {
             clearInterval(timeInterval);
             endGame();
         }
-    })
+    }, 1000);
+
+    setQuestions(0);
+
+
+    function endGame() {
+        gameOverContainer.style.visibility ="visible";
+        quizContainer.style.visibility = "hidden";
+    }
+    // start new timer tho
+    // ""
 
 })
