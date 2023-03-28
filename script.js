@@ -78,27 +78,7 @@ mainSubmitBtn.addEventListener("click", function loadQuestion() {
 
 //=========================================================
 
-mainSubmitBtn.addEventListener("click", function loadQuestion() {
-    introContainer.style.visibility = "hidden";
-    quizContainer.style.visibility = "visible";
-
-     var timeLeft = 60;
-     var timeInterval = setInterval(function () {
-        timeEl.textContent = timeLeft + " seconds remain";
-        timeLeft--;
-
-        if(timeLeft === 0) {
-            timeEl.textContent = "";
-
-            clearInterval(timeInterval);
-            endGame();
-        }
-     }, 1000);
-
-     setQuestions(0);
-
-
-     function endGame() {
-        gameOverContainer.style.visibility
-     }
-})
+function setQuestionns(i) {
+    var  i = 0
+    var objQ = questions[i];
+}
